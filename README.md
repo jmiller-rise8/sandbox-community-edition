@@ -90,7 +90,12 @@ The community edition was tested on Docker Desktop v3.1.0 and docker compose ver
 ### Starting the sandbox
 Make sure there are no port conflicts by running check-ports.sh. In the same terminal window or another terminal window run the following:
    ```sh
-    docker-compose up
+     ./setup-docker-environment.sh
+   ```
+or
+   ```sh
+    # You should alias this
+    docker-compose up --detach
    ```
 	
 This will start the services for the sandbox. At first, you will see something like the following

@@ -58,6 +58,8 @@ services:
       - "3000:3000"
       - "3001:3001"
       - "8060:8060"
+    volumes:
+      - ./wait-for-api.sh:/wait-for-api.sh
     environment:
       - AUTH_HOST=sandbox
       - AUTH_PORT=8060
@@ -86,6 +88,11 @@ services:
     depends_on:
       sandbox-mysql:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "/wait-for-api.sh 3001"]
+      interval: 4s
+      timeout: 30s
+      retries: 20
 
   dstu2:
     image: logicahealth/api
@@ -176,12 +183,12 @@ services:
     ports:
       - "8090:80"
 
-  bilirubin-risk-chart:
-    image: logicahealth/bilirubin-risk-chart-app
-    ports:
-      - "8086:8086"
+#  bilirubin-risk-chart:
+#    image: logicahealth/bilirubin-risk-chart-app
+#    ports:
+#      - "8086:8086"
 
-  patient-data-manager:
-    image: logicahealth/patient-data-manager
-    ports:
-      - "8096:8096"
+#  patient-data-manager:
+#    image: logicahealth/patient-data-manager
+#    ports:
+#      - "8096:8096"
